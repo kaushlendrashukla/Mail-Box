@@ -25,7 +25,7 @@ dispatch(authActions.logout())
                         <NavLink to='/about'>About us</NavLink>
                     </li> 
                      <li>
-                        <NavLink to= '/contact'>Contact Us</NavLink>
+                        <NavLink to= '/compose'>Compose</NavLink>
                     </li>
                 </ul>
                 </nav>

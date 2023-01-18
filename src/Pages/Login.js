@@ -47,7 +47,7 @@ const Login = () => {
             const data = await response.json();
             if (response.ok) {
             
-                 localStorage.setItem('idToken', JSON.stringify(data.idToken));
+                 localStorage.setItem('idToken', JSON.stringify(data));
               
                 dispatch(authActions.login());
                 navigate('/')

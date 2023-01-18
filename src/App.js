@@ -10,7 +10,7 @@ function App () {
   return <div>
       <Header />
    <Routes>  
-    <Route path = '/login' element= {<Login />} /> 
+    <Route path = '/login' element= {!isLoggedIn ? <Login />:< Navigate to = '/' /> } /> 
     <Route path = '/' exact element= {isLoggedIn ?  <Home /> :< Navigate to = '/login' />  } /> 
    
    </Routes>

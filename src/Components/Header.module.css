@@ -8,7 +8,8 @@
 
 .nav {
     width: 60%;
-    background-color: rgb(231, 116, 116);
+  
+    padding-top: 5px;
    
 }
 .remaining {
@@ -16,6 +17,17 @@
     display: flex;
     justify-content: center;
    align-items: center;
+}
+.remaining button {
+    padding: 10px 20px;
+    font: inherit;
+    background-color: brown;
+    border: 1px solid white;
+    color:  white;
+}
+.remaining button:hover {
+    background-color: rgb(138, 32, 32);
+
 }
 
 .container ul {

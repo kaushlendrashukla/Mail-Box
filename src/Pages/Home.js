@@ -3,10 +3,10 @@ import classes from "./Home.module.css";
 const Home = () => {
 
     return (
-        <div>
-            <h2>
-                hello i am Home Page
-            </h2>
+        <div className = {classes.welcome} >
+            <h3>
+            Welcome to your mail box....
+            </h3>
         </div>
     )
 }

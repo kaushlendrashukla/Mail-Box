@@ -44,17 +44,20 @@ const Login = () => {
                     'Content-Type': 'application/json',
                   },
             });
-            const data = await response.json;
+            const data = await response.json();
             if (response.ok) {
-                localStorage.setItem('idToken', JSON.stringify(data));
+            
+                 localStorage.setItem('idToken', JSON.stringify(data.idToken));
+              
                 dispatch(authActions.login());
                 navigate('/')
             }
             else {
-                throw data.error
+               alert( data.error )
             }
         }
         catch(error) {
+           
             alert(error.message)
         }
         
@@ -65,7 +68,7 @@ const Login = () => {
 
 
     return (
-        <div className={classes['main-form']}>
+        <div className={classes.mainform}>
             <form className={classes.form} onSubmit={loginFormHandler}>
                 <div className={classes.title}>{hasAccount ? 'Login' : 'Sign Up'}</div>
                 <input type='email' placeholder='Email' ref={emailRef} required />

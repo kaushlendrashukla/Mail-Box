@@ -1,16 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {mailData: []}
+const initialState = { mailData: [], firstTime: true, unreadMessageCount: 0 };
+
 const mailSlice = createSlice({
-    name: 'mail',
-    initialState: initialState,
-    reducers: {
-        add (state, action) {
-            state.mailData = [action.payload, ...state.mailData];
-        },
-        
-    }
-})
-export const mailActions = mailSlice.actions
+  name: 'mail',
+  initialState: initialState,
+  reducers: {
+    firstTime(state, action) {
+      state.firstTime = action.payload;
+    },
+    replace(state, action) {
+      state.mailData = action.payload.mailData;
+      state.firstTime = false;
+      state.unreadMessageCount = action.payload.unreadMessageCount;
+    },
+    add(state, action) {
+      state.mailData = [action.payload, ...state.mailData];
+    },
+    remove(state, action) {
+      state.mailData = state.mailData.filter(mail => mail.id !== action.payload.id);
+    },
+  },
+});
 
-export default mailSlice.reducer
+export const mailActions = mailSlice.actions;
+export default mailSlice.reducer;

@@ -1,41 +1,34 @@
-// import { Nav, Navbar,Container } from "react-bootstrap";
-import React from "react";
-import classes from "./Header.module.css"
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { authActions } from "../Store/auth-slice";
+import { useDispatch, useSelector } from 'react-redux';
+import classes from './Header.module.css';
+import { authActions } from '../store/auth-slice';
+import { showActions } from '../store/show-slice';
 
 
 const Header = () => {
-const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
-const dispatch = useDispatch ()
-const logoutHandler = () => {
-dispatch(authActions.logout())
-}
-    return (
-        <div className={classes.container}>
-            <div className={classes.nav}>
-                <nav>
-                <ul>
-                    <li>
-                        <NavLink  to='/'>Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to='/about'>About us</NavLink>
-                    </li> 
-                     <li>
-                        <NavLink to= '/compose'>Compose</NavLink>
-                    </li>
-                </ul>
-                </nav>
-            </div>
-            <div className={classes.remaining}>
-               { !isLoggedIn && <NavLink to = "/login">Login</NavLink>}
-               {isLoggedIn && <button onClick={logoutHandler}>Logout</button>}
-            </div>
-        </div>
-    )
-}
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
 
-export default Header
+  const authHandler = () => {
+    if (isLoggedIn) {
+      dispatch(authActions.logout());
+      dispatch(showActions.compose());
+    }
+  };
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.eighty}>
+        <h1>Mailbox</h1>
+      </div>
+      <div className={classes.remaining}>
+        {!isLoggedIn && <NavLink to="/login">Login</NavLink>}
+        {isLoggedIn && <button onClick={authHandler}>Logout</button>}
+      </div>
+
+    </div>
+  );
+};
+
+export default Header;

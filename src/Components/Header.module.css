@@ -1,52 +1,51 @@
 .container {
-    position: sticky;
-    display: flex;
-    background-color: brown;
-    width: 100%;
-  
+  position: sticky;
+  display: flex;
+  background-color: brown;
+  width: 100%;
+  border-bottom: 2px solid black;
 }
-
-.nav {
-    width: 60%;
-  
-    padding-top: 5px;
-   
+.eighty {
+  width: 60%;
+  color: white;
+  padding-top: 5px;
+  font-family: cursive;
 }
-.remaining {
-    width: 40%;
-    display: flex;
-    justify-content: center;
-   align-items: center;
+.eighty h1 {
+  padding-left: 50px;
+  font-weight: 20px;
 }
-.remaining button {
-    padding: 10px 20px;
-    font: inherit;
-    background-color: brown;
-    border: 1px solid white;
-    color:  white;
-}
-.remaining button:hover {
-    background-color: rgb(138, 32, 32);
-
-}
-
-.container ul {
-    display: flex;
-    justify-content: space-around;
-    list-style: none;
-    padding-top: 5px;
-  
-}
-
 .container a {
-    text-decoration: none;
-    font-size: 1.1rem;
-    color: black;
-    font-family: sans-serif;
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  background-color: brown;
+  border: 1px solid white;
 }
 
+.container a:hover {
+  padding: 11px 21px; 
+}
 
-.container a:focus {
-   
-   color:  white;
-  }
+.remaining {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.remaining button {
+  padding: 10px 20px;
+  font: inherit;
+  background-color: brown;
+  border: 1px solid white;
+  color:  white;
+  margin-right: 5px;
+}
+
+.remaining button:hover {
+  background-color: rgb(138, 32, 32);
+
+}

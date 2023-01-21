@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import classes from './Login.module.css';
-import { authActions } from '../Store/auth-slice';
+import { authActions } from '../store/auth-slice';
+import { mailActions } from '../store/mail-slice';
 
 const Login = () => {
     const [hasAccount, setHasAccount] = useState(true);
@@ -11,61 +13,59 @@ const Login = () => {
     const confirmPasswordRef = useRef();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
     const hasAccountHandler = () => {
         setHasAccount((preState) => !preState);
     };
+
     let url;
     if (hasAccount) {
-        url = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBWSS3XN_E1xvIXEOThRk9X6SqgWpzUdRw"
+        url =
+            'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBWSS3XN_E1xvIXEOThRk9X6SqgWpzUdRw';
+    } else {
+        url =
+            'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBWSS3XN_E1xvIXEOThRk9X6SqgWpzUdRw';
     }
-    else {
-        url = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBWSS3XN_E1xvIXEOThRk9X6SqgWpzUdRw'
-    }
-
 
     const loginFormHandler = async (event) => {
         event.preventDefault();
-        if (!hasAccount && passwordRef.current.value !== confirmPasswordRef.current.value){
-            alert('password and cnfrm password must be same')
-            return
+
+        if (
+            !hasAccount &&
+            passwordRef.current.value !== confirmPasswordRef.current.value
+        ) {
+            alert('Password and Confirmed password are different');
+            return;
         }
 
         try {
-            const response = await fetch(url, {
-                method : 'POST', 
-                body : JSON.stringify({
-                    email:emailRef.current.value,
+            const respense = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify({
+                    email: emailRef.current.value,
                     password: passwordRef.current.value,
-                    returnSecureToken : true,
+                    returnSecureToken: true,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
-                  },
+                },
             });
-            const data = await response.json();
-            if (response.ok) {
-            
-                 localStorage.setItem('idToken', JSON.stringify(data));
-              
+
+            const data = await respense.json();
+
+            if (respense.ok) {
+                localStorage.setItem('idToken', JSON.stringify(data));
                 dispatch(authActions.login());
-                navigate('/')
+                dispatch(mailActions.firstTime(true));
+                navigate('/home');
+            } else {
+                throw data.error;
             }
-            else {
-               alert( data.error )
-            }
+        } catch (error) {
+            alert(error.message);
         }
-        catch(error) {
-           
-            alert(error.message)
-        }
-        
-       
-
-    }
-
-
+    };
 
     return (
         <div className={classes.mainform}>
